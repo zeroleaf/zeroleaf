@@ -1,0 +1,30 @@
+env:
+  global:
+    - GH_REF: github.com/zeroleaf/zeroleaf.git
+    - secure: jg3A+Taodi1IptzdQRP1NDz5+ogJQxiytJbjdemNwrjxV0gzjf/mh0v5bz/GIu3YjD0zgwygkW3cIZyR7GbYYVMocHdwWcnMcJBgZfnkIpaFH58yg5ehAyWyQLMC4+PCXOo9GTjVrH7j9r13Y+7QR52SOTO+gDyK3KBydBLLrJq3TxAKzv1e0K+ZXrIhB3Jn0Zj/efmvI4pdqCgRL4/00bsE3RZlSJXtFFJ4JbAaYLLg+M29bVazCPnpT0Y+i0XyWl9+/KzbiXSavjPEcC8jiJW/P8o3l1kocNDGLnlI0jBhU7nqp5CPi4V3nVxoou7O0mHzg4dEhnMocaEefwx91ZZu1fIFKPN0FCpNMj82tMrpbMmHstLUH4jrihgovtXhrysxR7RFpMdUKhx87+6aUge+duNdU8GVAY1wCdkZNrNHHklSMPzWGRvnXGxGQR+ecxoOqBp4Mhtz+yc3nnVyuyDbLjcRE8cAn7TZXDYvILp7CTw/ZxFRrP/iV507XD59TGoY1/9VR6gg4nYEXbqELKyLI5IYzdmfPCpIgTs4uK8X2ZJ7h0qMLYpErwCctdyjFYA75SorqOWAjdX3e3192jcdi1dHsqdNw44WfABiIDGcNPkbSQ2A59z7EsEmo6DLWD5c3srb1f1LPmNs9INGFZJ50gUO3Ud53ew2zcLk+Sc=
+
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+
+# S: Build Lifecycle
+install:
+  - npm install
+
+script:
+  - hexo generate
+
+after_script:
+  - cd public
+  - git init
+  - git config user.name "iissnan"
+  - git config user.email "email_address"
+  - git add .
+  - git commit -m "Update article"
+  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+# E: Build LifeCycle
+
+branches:
+  only:
+    - master
