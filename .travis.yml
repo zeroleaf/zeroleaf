@@ -5,7 +5,6 @@ env:
 
 language: node_js
 node_js:
-  - "iojs"
   - "7"
 
 # S: Build Lifecycle
@@ -15,15 +14,16 @@ install:
 script:
   - hexo generate
 
-after_script:
-  - cd public
-  - git init
-  - git config user.name "iissnan"
-  - git config user.email "email_address"
-  - git add .
-  - git commit -m "Update article"
-  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
-# E: Build LifeCycle
+# https://docs.travis-ci.com/user/deployment/pages/
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN # Set in travis-ci.org dashboard
+  local_dir: public
+  email: zeroleaf021@gmail.com
+  name: zeroleaf
+  on:
+    branch: master
 
 branches:
   only:
