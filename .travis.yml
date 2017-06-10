@@ -8,6 +8,7 @@ install:
 
 script:
   - hexo generate
+  - echo "zeroleaf.com" > public/CNAME
 
 # https://docs.travis-ci.com/user/deployment/pages/
 deploy:
