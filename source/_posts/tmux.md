@@ -100,9 +100,36 @@ tmux 主要包含如下几个部分的功能:
 * `PREFIX SPACEBAR`: 在预定义的面板布局之间循环切换. 注意, 自定义的切换之后不能简单的撤销
 * `PREFIX X`: 关闭当前面板, 在关闭之前会有一个确认消息提示
 
+<!-- more -->
+
 ## 命令模式
 
 * `PREFIX :`: 进入命令模式, 在这里可以执行 tmux 的命令
+
+## 技巧
+
+### 命令别名
+
+[oh-my-zsh](http://ohmyz.sh/) 中有 tmux 的插件, 启用可使 tmux 的使用更加方便.
+该插件预定义了如下的命令别名:
+
+```zsh
+alias ta='tmux attach -t'
+alias tad='tmux attach -d -t'
+alias ts='tmux new-session -s'
+alias tl='tmux list-sessions'
+alias tksv='tmux kill-server'
+alias tkss='tmux kill-session -t'
+```
+
+同时, 鉴于 detach 与 switchc 命令也是很常用的, 建议添加如下的命令别名:
+
+```zsh
+alias td='tmux detach'
+alias th='tmux switchc -t'
+```
+
+这样就可以通过别名来快速的进行 tmux 相关的操作了, 大大方便了 tmux 的使用.
 
 ## 常见问题
 
