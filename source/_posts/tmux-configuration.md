@@ -2,6 +2,7 @@
 title: tmux 配置
 date: 2017-07-01 13:02:17
 tags: [tmux]
+categories: [Tool, tmux]
 ---
 [前篇](/2017/06/30/tmux/) 主要介绍了 tmux 的基本使用, 这篇主要介绍 tmux 的配置.
 
