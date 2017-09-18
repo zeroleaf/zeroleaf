@@ -11,7 +11,7 @@ categories: [工具, 网络]
 因此, 如果在国内, 有一台国外的虚拟主机即可代理自由上网;  
 而如果在国外, 则可以通过国内的主机代理来绕开版权的限制.
 
-## 服务器安装
+## 服务器
 
 首先确保服务器上安装了 **Python** 与 **pip**.
 
@@ -64,8 +64,9 @@ ssserver -c /etc/shadowsocks.json -d start
 快捷下载链接:
 
 - [Android](https://github.com/shadowsocks/shadowsocks-android/releases)
-- [shadowsocks-windows](https://github.com/shadowsocks/shadowsocks-windows/releases)
-- [shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5/releases)
+- [Win shadowsocks-windows](https://github.com/shadowsocks/shadowsocks-windows/releases)
+- [Win shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5/releases)
+- [Mac ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG/releases)
 
 **IOS**
 
