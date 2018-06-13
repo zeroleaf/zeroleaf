@@ -1,8 +1,13 @@
 ---
-title: js_动态调用
+title: Javascript 动态调用
 date: 2018-06-13 23:17:59
 tags: [Javascript, Function]
 ---
+
+// TBD
+// 1. bind
+// 2. call & apply 类似 trait 的作用
+// 3. 当函数为箭头函数时
 
 Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数
 
@@ -42,10 +47,10 @@ zeroleaf.greeting.call(sakura, 'Hello', 'And you?');
 ```
 
 可以看到, 通过 `call` 方法, 可以动态的改变函数中的 this 值. `call` 调用与直接的函数调用类似,
-只不过起第一个参数是要绑定的 this 值而已.
+只不过其第一个参数是要绑定的 this 值而已.
 
-值得注意的是, `call` 调用中关键的一个点是动态的改变 this 值, 但如果一个函数中没有用到 this 值,
-传递任何给 this 值其执行结果都是相同的 (假设 function 是一个纯函数). 示例如下:
+值得注意的是, `call` 调用中关键的一点是动态的改变 this 值, 但如果一个函数中没有用到 this 值,
+则传递任意值作为 this 值其执行结果都是相同的 (假设 function 是一个纯函数). 示例如下:
 
 ```javascript
 let calculator = {
@@ -81,5 +86,3 @@ zeroleaf.greeting.apply(sakura, ['Hello', 'And you?']);
 ```
 
 ## bind
-
-// TBD
