@@ -1,0 +1,916 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C,I/O," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZEROLEAF" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="IO 是每个程序中基本的操作, 而在大多数的文件I/O操作中, 只需要 5 个函数:open, read, write, lseek, close 等. 简单的来说, 几个基本函数是系统调用,提供了文件IO的最原始的操作. 文件描述符对内核而言, 所有打开的文件资源 都是通过文件描述符 引用. 文件描述符是一个 非负整数.在打开/创建文件时, 内核会向进程返回对应的文件描述符, 而其也是 read">
+<meta name="keywords" content="C,I&#x2F;O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C文件I&#x2F;O">
+<meta property="og:url" content="http://zeroleaf.com/2017/06/11/C文件I-O/index.html">
+<meta property="og:site_name" content="ZEROLEAF">
+<meta property="og:description" content="IO 是每个程序中基本的操作, 而在大多数的文件I/O操作中, 只需要 5 个函数:open, read, write, lseek, close 等. 简单的来说, 几个基本函数是系统调用,提供了文件IO的最原始的操作. 文件描述符对内核而言, 所有打开的文件资源 都是通过文件描述符 引用. 文件描述符是一个 非负整数.在打开/创建文件时, 内核会向进程返回对应的文件描述符, 而其也是 read">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-14T14:46:14.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C文件I&#x2F;O">
+<meta name="twitter:description" content="IO 是每个程序中基本的操作, 而在大多数的文件I/O操作中, 只需要 5 个函数:open, read, write, lseek, close 等. 简单的来说, 几个基本函数是系统调用,提供了文件IO的最原始的操作. 文件描述符对内核而言, 所有打开的文件资源 都是通过文件描述符 引用. 文件描述符是一个 非负整数.在打开/创建文件时, 内核会向进程返回对应的文件描述符, 而其也是 read">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zeroleaf.com/2017/06/11/C文件I-O/"/>
+
+
+
+
+
+  <title>C文件I/O | ZEROLEAF</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZEROLEAF</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">意志あるところに道は開ける</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zeroleaf.com/2017/06/11/C文件I-O/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeroleaf">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZEROLEAF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C文件I/O</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T02:16:00+00:00">
+                2017-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/I-O/" itemprop="url" rel="index">
+                    <span itemprop="name">I/O</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/11/C文件I-O/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/11/C文件I-O/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>IO 是每个程序中基本的操作, 而在大多数的文件I/O操作中, 只需要 5 个函数:<br><code>open</code>, <code>read</code>, <code>write</code>, <code>lseek</code>, <code>close</code> 等. 简单的来说, 几个基本函数是系统调用,<br>提供了文件IO的最原始的操作.</p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>对内核而言, 所有打开的文件资源 <strong>都是通过文件描述符</strong> 引用. 文件描述符是一个 <strong>非负整数</strong>.<br>在打开/创建文件时, 内核会向进程返回对应的文件描述符, 而其也是 <code>read</code>, <code>write</code> 等的参数.</p>
+<h3 id="特殊的文件描述符"><a href="#特殊的文件描述符" class="headerlink" title="特殊的文件描述符"></a>特殊的文件描述符</h3><ul>
+<li>STDIN_FILENO(0): 标准输入</li>
+<li>STDOUT_FILENO(1): 标准输出</li>
+<li>STDERR_FILENO(2): 标准错误</li>
+</ul>
+<p>值得注意的是, 虽然 0, 1, 2 已被标准化, 但在编码的时候最好还是使用 XX_FILENO 预定义常量.<br>常量预定义在 <code>&lt;unistd.h&gt;</code> 中.</p>
+<a id="more"></a>
+<h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><p>打开或创建一个文件, 函数原型如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 成功: 返回最小未使用的文件描述符数值</span><br><span class="line"># 失败: <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">openat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><em>path</em> 参数为要打开或创建的文件的名称. flags 为该函数的选项, 一般为一个或<br>多个常量进行 “按位或” 运算构成, 可选值如下:</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O_RDONLY</td>
+<td>只读打开</td>
+</tr>
+<tr>
+<td>O_WRONLY</td>
+<td>只写打开</td>
+</tr>
+<tr>
+<td>O_FDWR</td>
+<td>读写打开</td>
+</tr>
+<tr>
+<td>O_APPEND</td>
+<td>以追加模式打开该文件</td>
+</tr>
+<tr>
+<td>O_CLOEXEC</td>
+<td>在文件描述符上设置 FD_CLOEXEC 常量</td>
+</tr>
+<tr>
+<td>O_CREATE</td>
+<td>如果文件不存在, 则创建</td>
+</tr>
+<tr>
+<td>O_DIRECTORY</td>
+<td>如果 <em>path</em> 不是一个文件夹, 则调用失败</td>
+</tr>
+<tr>
+<td>O_EXCL</td>
+<td>如果同时设置了 O_CREAT 并且文件存在则出错</td>
+</tr>
+<tr>
+<td>O_NOCTTY</td>
+<td>如果 <em>path</em> 引用的是终端设备, 则不将该设备分配作为此进程的控制终端</td>
+</tr>
+<tr>
+<td>O_NOFOLLOW</td>
+<td>如果 <em>path</em> 引用的是一个符号链接, 则出错</td>
+</tr>
+<tr>
+<td>O_NONBLOCK</td>
+<td>非阻塞, 不等待数据可用</td>
+</tr>
+<tr>
+<td>O_SYNC</td>
+<td>使每次 write 等待物理 I/O 操作完成, 包括由该 write 操作引起的文件属性更新所需的 I/0</td>
+</tr>
+<tr>
+<td>O_TRUNC</td>
+<td>以写模式成功打开, 将文件长度截断为 0</td>
+</tr>
+<tr>
+<td>O_DSYNC</td>
+<td>使每次 write 要等待物理 I/O 操作完成, 但是如果该写操作并不影响读取刚写入的数据, 则不需等待文件属性被更新</td>
+</tr>
+<tr>
+<td>O_RSYNC</td>
+<td>使每一个以文件描述符作为参数进行的 read 操作等待, 直至所有对文件同一部分挂起的写操作都完成</td>
+</tr>
+</tbody>
+</table>
+<p>其中, 前 3 者为打开模式, 必须并且只能设置一种, 余下的为附加选项, 可以通过 按位或 运算添加.<br>更多详细的描述, 可通过 <code>man 3 open</code> 来查看.</p>
+<p>除非 <em>path</em> 参数是一个相对路径, 否则 <code>openat</code> 与 <code>open</code> 调用的行为是完全一致的.<br>在这种情况下(<em>path</em> 为相对路径), 待打开的文件所在的目录为 fd 文件所在的目录而不是当前目录;<br>如果 fd 为特殊值 AT_FDCWD, 则使用当前目录此时行为与 <code>open</code> 也是完全一致.</p>
+<h2 id="creat"><a href="#creat" class="headerlink" title="creat"></a>creat</h2><p>创建一个新文件, 函数原型:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>当前的实现与 <code>open(path, O_CREAT | O_TRUNC | O_WRONLY, mode);</code> 相同</p>
+<h2 id="close"><a href="#close" class="headerlink" title="close"></a>close</h2><p>关闭一个打开的文件, 函数原型:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 成功: 返回 <span class="number">0</span></span><br><span class="line"># 失败: 返回 <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fildes)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>注意</p>
+<ul>
+<li>关闭一个文件时还会释放该进程加在该文件上的所有记录锁.</li>
+<li>当一个进程终止时, 内核自动关闭它所有打开的文件.<br><u>(很多程序都利用了这一功能而不显式地用 close 函数关闭打开文件)</u></li>
+</ul>
+<h2 id="lseek"><a href="#lseek" class="headerlink" title="lseek"></a>lseek</h2><p>表征读/写文件的便宜量. 除非在打开文件时特别指定 <strong>O_APPEND</strong> 选项, 否则该偏移量都为 <strong>0</strong>.</p>
+<p>可以通过该调用显式地设置一个打开文件的偏移量:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 成功: 新的文件偏移量</span><br><span class="line"># 失败: <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">off_t</span> lseek(<span class="keyword">int</span> fildes, <span class="keyword">off_t</span> offset, <span class="keyword">int</span> whence);</span><br></pre></td></tr></table></figure>
+<p>对参数 <em>offset</em> 的解释与 <em>whence</em> 有关:</p>
+<ul>
+<li>若 <em>whence</em> 是 <strong>SEEK_SET</strong>, 则将该文件的偏移量设置为距文件开始处 <em>offset</em> 个字节.</li>
+<li>若 <em>whence</em> 是 <strong>SEEK_CUR</strong>, 则将该文件的偏移量设置为当前值加 <em>offset</em>, <em>offset</em> 可为正或负.</li>
+<li>若 <em>whence</em> 是 <strong>SEEK_END</strong>, 则将该文件的偏移量设置为文件长度加 <em>offset</em>, <em>offset</em> 可为正或负. </li>
+</ul>
+<p>其中</p>
+<blockquote>
+<p><strong>off_t</strong> 其实是一个整型类型, 根据系统的不同实际值也不一样, 但至少不小于 <strong>int</strong>  </p>
+</blockquote>
+<p>注意</p>
+<blockquote>
+<p>文件偏移量可以大于当前文件长度, 在这种情况下, 对该文件的下一次写将加长该文件,<br>并在文件中构成一个空洞, 位于文件中但没有写过的字节都被读为 <strong>0</strong></p>
+</blockquote>
+<h2 id="read"><a href="#read" class="headerlink" title="read"></a>read</h2><p>从打开的文件中读取数据, 函数原型:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 尝试从 fd 引用的文件中读取 nbytes 字节的数据到 buf 中</span><br><span class="line"># 成功: 返回读到的字节数, 如果已到达文件尾端, 则返回 <span class="number">0</span></span><br><span class="line"># 失败: 返回 <span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sszie_t</span> read(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes);</span><br></pre></td></tr></table></figure>
+<p>以下情况可使实际读到的字节数少于要求的字节数:</p>
+<ul>
+<li>读取普通文件时, 在读到要求字数之前已经到达了文件尾端</li>
+<li>当从终端设备读时, 通常一次最多读取一行</li>
+<li>当从网络读取时, 网络中的缓冲机制可能造成返回值小于所要求读的字节数</li>
+<li>当从管道或FIFO读取, 如果管道包含的字节少于所需的数量, 那么 read 将只返回实际可用的字节数</li>
+<li>当从某些面向记录的设备读时, 一次最多返回一个记录</li>
+<li>当一信号造成中断, 而已经读了部分数据量时</li>
+</ul>
+<h2 id="write"><a href="#write" class="headerlink" title="write"></a>write</h2><p>向打开的文件写入数据, 函数原型:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 尝试将 buf 中的 nbytes 字节数据写入到文件中</span><br><span class="line"># 成功: 返回已写的字节数</span><br><span class="line"># 失败: 返回 <span class="number">-1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> write(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes);</span><br></pre></td></tr></table></figure>
+<p>其返回值通常与参数 nbytes 值相同, 否则表示出错.</p>
+<p>对于普通文件, 写操作从文件的当前偏移出开始. 如果在打开文件时, 指定了 <strong>O_APPEND</strong> 选项,<br>则在每次写操作之前, 将文件偏移量设置在文件的当前结尾处. 在一次成功写之后, 该文件偏移量增加实际写的字节数.</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUF_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *content  = <span class="string">"Nice to meet you!"</span>;</span><br><span class="line">    <span class="keyword">char</span> *filename = <span class="string">"io.txt"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Write message to file io.txt</span></span><br><span class="line">    <span class="keyword">int</span> fd             = open(filename, O_WRONLY | O_CREAT, <span class="number">0644</span>);</span><br><span class="line">    write(fd, content, <span class="built_in">strlen</span>(content));</span><br><span class="line">    close(fd);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read data from io.txt</span></span><br><span class="line">    <span class="keyword">char</span>    buf[BUF_SIZE];</span><br><span class="line">    <span class="keyword">ssize_t</span> read_count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Skip word Nice</span></span><br><span class="line">    fd = open(filename, O_RDONLY);</span><br><span class="line">    <span class="keyword">off_t</span> offset = lseek(fd, (<span class="keyword">off_t</span>) <span class="built_in">strlen</span>(<span class="string">"Nice"</span>) + <span class="number">1</span>, SEEK_SET);</span><br><span class="line">    read(fd, buf, BUF_SIZE);</span><br><span class="line">    close(fd);</span><br><span class="line"></span><br><span class="line">    assert(<span class="built_in">strcmp</span>(<span class="string">"to meet you!"</span>, buf) == <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>UNIX 环境高级编程(第三版)</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/I-O/" rel="tag"># I/O</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/10/Git无法添加某些文件夹/" rel="next" title="Git无法添加某些文件夹">
+                <i class="fa fa-chevron-left"></i> Git无法添加某些文件夹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/12/系统调用/" rel="prev" title="系统调用">
+                系统调用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zeroleaf" />
+          <p class="site-author-name" itemprop="name">zeroleaf</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.</span> <span class="nav-text">文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的文件描述符"><span class="nav-number">1.1.</span> <span class="nav-text">特殊的文件描述符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">2.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creat"><span class="nav-number">3.</span> <span class="nav-text">creat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#close"><span class="nav-number">4.</span> <span class="nav-text">close</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lseek"><span class="nav-number">5.</span> <span class="nav-text">lseek</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read"><span class="nav-number">6.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write"><span class="nav-number">7.</span> <span class="nav-text">write</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">8.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件共享"><span class="nav-number">9.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeroleaf</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zeroleaf.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zeroleaf.com/2017/06/11/C文件I-O/';
+          this.page.identifier = '2017/06/11/C文件I-O/';
+          this.page.title = 'C文件I/O';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zeroleaf.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

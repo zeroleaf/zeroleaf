@@ -1,0 +1,796 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,Function," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZEROLEAF" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数  call apply bind  下面分别对这3个函数进行详细的说明.">
+<meta name="keywords" content="Javascript,Function">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript 动态调用">
+<meta property="og:url" content="http://zeroleaf.com/2018/06/13/js动态调用/index.html">
+<meta property="og:site_name" content="ZEROLEAF">
+<meta property="og:description" content="Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数  call apply bind  下面分别对这3个函数进行详细的说明.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-14T14:46:14.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript 动态调用">
+<meta name="twitter:description" content="Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数  call apply bind  下面分别对这3个函数进行详细的说明.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zeroleaf.com/2018/06/13/js动态调用/"/>
+
+
+
+
+
+  <title>Javascript 动态调用 | ZEROLEAF</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZEROLEAF</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">意志あるところに道は開ける</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zeroleaf.com/2018/06/13/js动态调用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeroleaf">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZEROLEAF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript 动态调用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-13T15:17:59+00:00">
+                2018-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/13/js动态调用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/13/js动态调用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数</p>
+<ul>
+<li><code>call</code></li>
+<li><code>apply</code></li>
+<li><code>bind</code></li>
+</ul>
+<p>下面分别对这3个函数进行详细的说明.</p>
+<a id="more"></a>
+<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p><code>call</code> 函数的语法为:</p>
+<p><code>function.call(thisArg, arg1, arg2, ...)</code></p>
+<p><code>call</code> 方法主要以指定的 this 值以及逐个提供的参数来调用某个函数.<br>举例来说, </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> zeroleaf = &#123;</span><br><span class="line">    name: <span class="string">'zeroleaf'</span>,</span><br><span class="line"></span><br><span class="line">    greeting(greet, hint) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;greet&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, <span class="subst">$&#123;hint&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sakura = &#123;</span><br><span class="line">    name: <span class="string">'sakura'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zeroleaf.greeting(<span class="string">'Hello'</span>, <span class="string">'And you?'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am zeroleaf, And you?</span></span><br><span class="line"></span><br><span class="line">zeroleaf.greeting.call(sakura, <span class="string">'Hello'</span>, <span class="string">'And you?'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am sakura, And you?</span></span><br></pre></td></tr></table></figure>
+<p>可以看到, 通过 <code>call</code> 方法, 可以动态的改变函数中的 this 值. <code>call</code> 调用与直接的函数调用类似,<br>只不过其第一个参数是要绑定的 this 值而已.</p>
+<p>值得注意的是, <code>call</code> 调用中关键的一点是动态的改变 this 值, 但如果一个函数中没有用到 this 值,<br>则传递任意值作为 this 值其执行结果都是相同的 (假设 function 是一个纯函数). 示例如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> calculator = &#123;</span><br><span class="line">    sum(a, b) &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> pc = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(calculator.sum(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(calculator.sum.call(pc, <span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(calculator.sum.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(calculator.sum.call(<span class="literal">false</span>, <span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line"><span class="comment">// 输出: 上述所有的输出都为 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p><code>apply</code> 函数的语法如下:</p>
+<p><code>function.apply(thisArg, [argsArray])</code></p>
+<p>在理解了 <code>call</code> 方法的基础上, <code>apply</code> 就相对简单了. 其与 <code>call</code> 基本类似, 区别在于,<br><code>call</code> 的函数参数是逐个传递的, 而 <code>apply</code> 则统一为一个数组或者类数组对象. 举例来说:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于第一个代码的例子</span></span><br><span class="line"></span><br><span class="line">zeroleaf.greeting.apply(sakura, [<span class="string">'Hello'</span>, <span class="string">'And you?'</span>]);</span><br><span class="line"><span class="comment">// 输出: Hello, i am sakura, And you?</span></span><br></pre></td></tr></table></figure>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p><code>bind</code> 函数的语法如下:</p>
+<p><code>fun.bind(thisArg[, arg1[, arg2[, ...]]])</code></p>
+<p>与 <code>call</code>, <code>apply</code> 不同的是, 对 <code>bind</code> 函数的调用返回的是原函数基于指定的 this 值以及初始化参数改造的<br>原函数的拷贝, 而不是以不同的 this 值调用原函数.</p>
+<p>举例来说:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> zeroleaf = &#123;</span><br><span class="line">    name: <span class="string">'zeroleaf'</span>,</span><br><span class="line"></span><br><span class="line">    greeting(greet, hint) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;greet&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, <span class="subst">$&#123;hint&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sakura = &#123;</span><br><span class="line">    name: <span class="string">'sakura'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> helloFromSakura = zeroleaf.greeting.bind(sakura, <span class="string">'Hello'</span>);</span><br><span class="line"></span><br><span class="line">helloFromSakura(<span class="string">'Nice to meet you!'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am sakura, Nice to meet you!</span></span><br></pre></td></tr></table></figure>
+<p>可以看到, 对 <code>bind</code> 函数的调用返回了原函数的拷贝, 除 this 值之外也将 greet 参数初始化为 ‘Hello’,<br>这样, 返回的拷贝函数则是一个单参数 (hint) 的函数了, 也即偏函数的用法.</p>
+<p>结合 <code>bind</code> 与 <code>apply</code> 或 <code>call</code>, 可以创建函数的 “快捷方式”. 如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLikeObject = &#123;</span><br><span class="line">    <span class="number">0</span>: <span class="string">'zero'</span>,</span><br><span class="line">    <span class="number">1</span>: <span class="string">'one'</span>,</span><br><span class="line">    <span class="number">2</span>: <span class="string">'two'</span>,</span><br><span class="line">    length: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> numbers = <span class="built_in">Array</span>.prototype.slice.apply(arrayLikeObject);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'numbers is Array?'</span>, <span class="built_in">Array</span>.isArray(numbers));</span><br><span class="line"><span class="comment">// 输出: numbers is Array? true</span></span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br><span class="line"><span class="comment">// 输出: [ 'zero', 'one', 'two' ]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> slice = <span class="built_in">Function</span>.prototype.apply.bind(<span class="built_in">Array</span>.prototype.slice);</span><br><span class="line"></span><br><span class="line">numbers = slice(arrayLikeObject);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'numbers is Array?'</span>, <span class="built_in">Array</span>.isArray(numbers));</span><br><span class="line"><span class="comment">// 输出: numbers is Array? true</span></span><br><span class="line"><span class="built_in">console</span>.log(numbers);</span><br><span class="line"><span class="comment">// 输出: [ 'zero', 'one', 'two' ]</span></span><br></pre></td></tr></table></figure>
+<p>对于, 类数组对象, 我们通常会使用 <code>Array.prototype.slice.apply</code> 将其转换为一个数组(这里用 <code>call</code> 效果一样),<br>但是如果这样的用法很多的情况时, 可以考虑一个简化的 slice 函数, 具体为即:</p>
+<p><code>let slice = Function.prototype.apply.bind(Array.prototype.slice);</code></p>
+<p>相比较 <code>Array.prototype.slice.apply</code>, 上面的例子还是比较绕的, 因此这里展开如下:</p>
+<ol>
+<li>数组函数 <code>slice</code> 的原型为 <code>arr.slice(begin, end)</code>, 其中 begin, end 是可选的,<br>都省略的情况下, 则 begin = 0, end = 数组末尾, 即浅拷贝这个数组</li>
+<li>理想情况, 调用 <code>arrayLikeObject.slice()</code> 即可, 但是类数组对象是不支持 slice 函数的, 因此采用迂回的方式,<br>将类数组对象作为 this 值调用 slice: <code>Array.prototype.slice.apply(arrayLikeObject)</code></li>
+<li>简化, 去掉 prototype 之后为 <code>slice.apply(arrayLikeObject)</code>, 对这个函数调用来说,<br>this 值为 <code>slice</code>, 调用函数为 <code>apply</code>, 参数为 arrayLikeObject</li>
+<li>由于调用 <code>bind</code> 函数可以返回一个函数重新绑定了 this 值(或者参数值)之后的拷贝函数,<br>因此可以使用 <code>bind</code> 固化 this 值, 即 <code>apply.bind(slice)</code></li>
+</ol>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>由于箭头函数没有 this 值(其 this 值是作用域的上一级 this, 因此在函数声明的时候相当于 this 值已经固定),<br>因此也就不能重新绑定起 this 值, 因此 <code>call</code>, <code>aplly</code>, <code>bind</code> 中的 this 值绑定对其无效:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> zeroleaf = &#123;</span><br><span class="line">    name: <span class="string">'zeroleaf'</span>,</span><br><span class="line"></span><br><span class="line">    greetingCallback() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">greet, hint</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;greet&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, <span class="subst">$&#123;hint&#125;</span>`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sakura = &#123;</span><br><span class="line">    name: <span class="string">'sakura'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zeroleafGreeting = zeroleaf.greetingCallback();</span><br><span class="line"></span><br><span class="line">zeroleafGreeting(<span class="string">'Hello'</span>, <span class="string">'Nice to meet you!'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am zeroleaf, Nice to meet you!</span></span><br><span class="line">zeroleafGreeting.apply(sakura, [<span class="string">'Hello'</span>, <span class="string">'Nice to meet you!'</span>]);</span><br><span class="line"><span class="comment">// 输出: Hello, i am zeroleaf, Nice to meet you!</span></span><br><span class="line">zeroleafGreeting.call(sakura, <span class="string">'Hello'</span>, <span class="string">'Nice to meet you!'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am zeroleaf, Nice to meet you!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> helloFromSakura = zeroleafGreeting.bind(sakura, <span class="string">'Hello'</span>);</span><br><span class="line">helloFromSakura(<span class="string">'Nice to meet you!'</span>);</span><br><span class="line"><span class="comment">// 输出: Hello, i am zeroleaf, Nice to meet you!</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可以重新绑定 this 值, 给予了 JS 更大的灵活性(当然同时也更复杂了), 当前能想到的作用有:</p>
+<ul>
+<li><strong>this 对象的契约设计</strong>, 满足指定条件的对象(类似面向对象中的接口)都可以作为参数调用给定的方法</li>
+<li><p><strong>程序的模块化</strong>, 将整体中其中一块功能独立出来实现, 在调用的时候使用 this 绑定, 从而避免整体的实现太过于复杂. 类似于 PHP 中的 <code>trait</code>.</p>
+<p>举例来说, <a href="https://github.com/sampotts/plyr" target="_blank" rel="noopener">plyr</a> 的主体 plyr 播放器中包含有 <strong>captions</strong>(字幕??)子组件,<br>而其在 plyr.js 中对 captions 部分的调用方式为:</p>
+<p><code>captions.set.call(this, input);</code> </p>
+<p>即将 captions 的功能独立出来而在调用的时候再绑定 this 值以简化 plyr 的实现.</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/Function/" rel="tag"># Function</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/27/文体与活用形/" rel="next" title="文体与活用形">
+                <i class="fa fa-chevron-left"></i> 文体与活用形
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zeroleaf" />
+          <p class="site-author-name" itemprop="name">zeroleaf</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#call"><span class="nav-number">1.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply"><span class="nav-number">2.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind"><span class="nav-number">3.</span> <span class="nav-text">bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">4.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeroleaf</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zeroleaf.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zeroleaf.com/2018/06/13/js动态调用/';
+          this.page.identifier = '2018/06/13/js动态调用/';
+          this.page.title = 'Javascript 动态调用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zeroleaf.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

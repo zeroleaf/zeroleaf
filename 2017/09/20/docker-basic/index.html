@@ -1,0 +1,884 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Docker," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZEROLEAF" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="该文章主要介绍 Docker 相关的基础内容, 主要包括:  基本概念 常用操作  基本概念 Docker 是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。 – 维基百科  Docker 主要包含有如下的核心组件:  Docker 客户端和服务器 Docker 镜像 Docker 容">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 基础">
+<meta property="og:url" content="http://zeroleaf.com/2017/09/20/docker-basic/index.html">
+<meta property="og:site_name" content="ZEROLEAF">
+<meta property="og:description" content="该文章主要介绍 Docker 相关的基础内容, 主要包括:  基本概念 常用操作  基本概念 Docker 是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。 – 维基百科  Docker 主要包含有如下的核心组件:  Docker 客户端和服务器 Docker 镜像 Docker 容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://cdn1.infoqstatic.com/statics_s1_20170919-0429u7/resource/articles/docker-source-code-analysis-part1/zh/resources/001.jpg">
+<meta property="og:updated_time" content="2018-06-14T14:46:14.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 基础">
+<meta name="twitter:description" content="该文章主要介绍 Docker 相关的基础内容, 主要包括:  基本概念 常用操作  基本概念 Docker 是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。 – 维基百科  Docker 主要包含有如下的核心组件:  Docker 客户端和服务器 Docker 镜像 Docker 容">
+<meta name="twitter:image" content="http://cdn1.infoqstatic.com/statics_s1_20170919-0429u7/resource/articles/docker-source-code-analysis-part1/zh/resources/001.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zeroleaf.com/2017/09/20/docker-basic/"/>
+
+
+
+
+
+  <title>Docker 基础 | ZEROLEAF</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZEROLEAF</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">意志あるところに道は開ける</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zeroleaf.com/2017/09/20/docker-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeroleaf">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZEROLEAF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T16:34:51+00:00">
+                2017-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/20/docker-basic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/20/docker-basic/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>该文章主要介绍 Docker 相关的基础内容, 主要包括:</p>
+<ul>
+<li>基本概念</li>
+<li>常用操作</li>
+</ul>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<p><strong>Docker</strong> 是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，<br>借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。</p>
+<p>– 维基百科</p>
+</blockquote>
+<p>Docker 主要包含有如下的核心组件:</p>
+<ul>
+<li>Docker 客户端和服务器</li>
+<li>Docker 镜像</li>
+<li>Docker 容器</li>
+<li>Registry</li>
+</ul>
+<p>Docker 总架构图如下(图片来自 infoq):</p>
+<p><img src="http://cdn1.infoqstatic.com/statics_s1_20170919-0429u7/resource/articles/docker-source-code-analysis-part1/zh/resources/001.jpg" alt="Docker 总架构图"></p>
+<a id="more"></a>
+<h2 id="客户端服务器"><a href="#客户端服务器" class="headerlink" title="客户端服务器"></a>客户端服务器</h2><p>从上述的 Docker 总架构图中可以很容易的看出 Docker 是一个客户端, 服务器架构.</p>
+<p>Docker 以 <strong>root</strong> 权限运行它的守护进程, 来处理普通用户无法完成的操作 (如挂载文件系统).<br>守护进程启动后, 会监听 <em>/var/run/docker.sock</em>  这个 Unix 套接字文件, 以处理来自客户端的 docker 请求.</p>
+<p>该套接字的权限如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srw-rw---- 1 root docker 0 Oct  1 11:11 /var/run/docker.sock</span><br></pre></td></tr></table></figure>
+<p>如果系统中存在 <em>docker</em> 用户组(Ubuntu 在安装 docker 的时候默认会添加) 则守护进程会将套接字的<br>用户组设置为 <em>docker</em>. 因此, 将当前用户加入 <em>docker</em> 用户组即可不用 <code>sudo</code> 来执行命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 如果使用的是 <strong>Docker for Mac</strong>, 则上述的套接字文件路径为 <strong>/private/var/run/docker.sock</strong></p>
+</blockquote>
+<blockquote>
+<p>注意: 当前(2017.09)使用的是 <em>docker-ce</em> 版本, 其 docker 守护进程的启动方式已由原来的<br>  <code>docker -d -H unix://</code> 方式改为了用 <code>dockerd -H</code> 的形式启动, 通过 <code>ps</code> 查看的结果如下:<br>  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root      1081  0.1  4.3 503396 44396 ?        Ssl  11:12   0:01 /usr/bin/dockerd -H fd://</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h2><p>Docker 的镜像相当于一个最小的系统, 它是用来用来创建容器的模板, 每次从镜像中创建的新容器,<br>其初始环境都是一样的, 同时也可以通过命令行参数或者 <strong>Dockerfile</strong> 对新创建的容器进行定制,<br>这就保证了镜像的通用性, 以及对于程序环境的一致性.</p>
+<p>可以通过 <code>docker pull</code> 命令从远端仓库拉取一个镜像, 如可以通过如下命令获取 ubuntu 17.04 版镜像:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu:17.04</span><br></pre></td></tr></table></figure>
+<p>其中 17.04 为标签(Tag)名称, 如果省略, 默认为 <strong>latest</strong>, 对于 ubuntu 而言, latest 指向的是最新的 LTS 版本,<br>因此当前为 16.04.</p>
+<p>在拉取了一个镜像之后, 可以通过 <code>docker images</code> 命令来查看当前已拉取的镜像:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出如下</span></span><br><span class="line"></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              17.04               6ca5545cc1ef        12 days ago         94.7MB</span><br></pre></td></tr></table></figure>
+<p>其中, <strong>IMAGE ID</strong> 是容器的标识, 在对容器进行操作的时候需要使用到该标识.</p>
+<p>如果想删除镜像, 可以先通过上述命令找到镜像的 ID, 然后通过 <code>docker rmi</code> 命令删除即可:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line"><span class="comment"># docker images 输出</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              17.04               6ca5545cc1ef        12 days ago         94.7MB</span><br><span class="line">nginx               latest              da5939581ac8        2 weeks ago         108MB</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除 nginx 镜像</span></span><br><span class="line">docker rmi da5939581ac8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前所有的镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="comment"># 当前所有镜像</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">ubuntu              17.04               6ca5545cc1ef        12 days ago         94.7MB</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>值得注意的是:</p>
+</blockquote>
+<ul>
+<li>当有容器在运行的时候, 是不能删除镜像的;</li>
+<li>当镜像对应的容器全部都停止时, 可以通过 <strong>-f</strong> 选项来强制删除镜像, 但不会同时删除已存在的容器;<br>由此可见, 当容器创建完之后, 它就是个独立的存在, 对镜像的更改不会影响到现有的容器.</li>
+<li>可以安全的删除未被使用的镜像</li>
+</ul>
+<blockquote>
+<p><code>docker images</code> 命令的 <code>-q</code> 选项只显示容器的标识, 因此可以通过如下命令来移除所有镜像:</p>
+</blockquote>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi $(docker images -q)</span><br></pre></td></tr></table></figure>
+<h2 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h2><p>容器是镜像运行的实例. 类比面向对象编程语言, 镜像相当于类, 而容器则相当于类的一个实例.</p>
+<h3 id="创建一个新的容器"><a href="#创建一个新的容器" class="headerlink" title="创建一个新的容器"></a>创建一个新的容器</h3><p>可以通过 <code>docker run</code> 命令来创建一个新的容器:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name demo1 ubuntu:17.04</span><br></pre></td></tr></table></figure>
+<p>上述命令即以 ubuntu 的 17.04 版本为基准, 构建了一个新的容器实例. 其中, 通过 <code>--name</code> 参数制定该容器的名字为 demo1,<br><code>-it</code> 来模拟一个 tty 终端进入到容器中与之交互. <code>docker run</code> 命令还有其他的参数, 可以通过 <code>docker run --help</code> 来查看.</p>
+<h3 id="查看容器的运行状态"><a href="#查看容器的运行状态" class="headerlink" title="查看容器的运行状态"></a>查看容器的运行状态</h3><p>在上一步, 我们已经创建并启动了一个容器实例, 当前终端显示如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@efbda911a3ac:/<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>说明我们已经以 root 用户登录该容器了. 其中, efbda911a3ac 为容器的标识.<br>可以通过 <code>docker ps</code> 命令查看容器的运行状态, 打开另一个终端窗口(一般 Cmd+t 即可), 执行如下命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">efbda911a3ac        ubuntu:17.04        <span class="string">"/bin/bash"</span>         9 minutes ago       Up 9 minutes                            demo1</span><br></pre></td></tr></table></figure>
+<p>可以看到之前我们创建的 demo1 容器确实在运行.</p>
+<p>切回容器所在的终端窗口, 执行 <code>exit</code> 命令以退出与容器的交互. 此时在执行 <code>docker ps</code> 命令则没有响应容器的信息输出,<br>因为 <code>docker ps</code> 只显示当前运行中的容器, 可以通过 <code>-a</code> 选项来显示所有的容器, 即:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">efbda911a3ac        ubuntu:17.04        <span class="string">"/bin/bash"</span>         17 minutes ago      Exited (0) 3 minutes ago                       demo1</span><br></pre></td></tr></table></figure>
+<p>则可以清楚的看到 demo1 的状态以及其退出的时间. 同时, 根据我们也知道了, 如果停止与容器交互, 容器也会停止运行.<br>事实上, 容器是在上述 COMMAND 执行期间才处于运行状态的, 而当 COMMAND 执行完之后, 容器就相应的退出了.<br>这也是为什么我们 <code>exit</code> 之后容器停止的原因, 因为 <code>/bin/bash</code> 命令执行完成了.</p>
+<h3 id="启动现有的容器"><a href="#启动现有的容器" class="headerlink" title="启动现有的容器"></a>启动现有的容器</h3><p>值得注意的是, <code>docker run</code> 命令是每次都新 <strong>创建</strong> 一个容器. 因此如果想要启动现有的容器, 应该使用 <code>docker start</code> 命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start -ai demo1</span><br></pre></td></tr></table></figure>
+<p>则我们重新进入了 demo1 容器的模拟终端. <code>-ai</code> 选项即是制定与该容器交互.<br>此时在通过 <code>docker ps</code> 即可看到 demo1 容器已经处在运行状态.</p>
+<h3 id="在容器内部运行进程"><a href="#在容器内部运行进程" class="headerlink" title="在容器内部运行进程"></a>在容器内部运行进程</h3><p>对上述启动操作, 如果没有指定 <code>-ai</code> 选项, 则容器是放在后台运行的.<br>此时, 我们可以使用 <code>docker attach</code> 命令来打开与该容器交互的模拟终端:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach demo1</span><br></pre></td></tr></table></figure>
+<p>同时, 对于在后台运行的容器, 可以使用 <code>docker exec</code> 命令来与之交互, 如:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建</span></span><br><span class="line">docker <span class="built_in">exec</span> -d demo1 touch /etc/new_config_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">docker <span class="built_in">exec</span> -t demo1 ls -al /etc/new_config_file</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">-rw-r--r-- 1 root root 0 Oct  2 13:46 /etc/new_config_file</span><br></pre></td></tr></table></figure>
+<p>上述命令都是在交互式的对容器进行操作, <code>-d</code> 指定容器以后台模式运行, <code>-t</code> 生成一个模拟 tty 终端以显示容器的输出.</p>
+<p>同时, 也可以通过如下命令达到与 attach 一样的与容器直接交互的效果:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it demo1 /bin/bash</span><br></pre></td></tr></table></figure>
+<h3 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h3><p>要想停止容器, 除了 <code>exit</code> 之外, 也可以使用 <code>docker stop</code> 命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop demo1</span><br></pre></td></tr></table></figure>
+<h3 id="重命名容器"><a href="#重命名容器" class="headerlink" title="重命名容器"></a>重命名容器</h3><p>在上述操作中, 我们使用了该容器的名字 <em>demo1</em> 而不是标识来启动该容器, 说明给容器起一个有意义的名字, 在后续操作会带来很大的便利.<br>可以通过 <code>docker rename</code> 命令来对容器重命名, 但要注意必须保证名字的唯一性:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 demo1 重命名为 c1</span></span><br><span class="line">docker rename demo1 c1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看容器状态</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">efbda911a3ac        ubuntu:17.04        <span class="string">"/bin/bash"</span>         35 minutes ago      Exited (0) 3 minutes ago                       c1</span><br></pre></td></tr></table></figure>
+<p>其中, <em>demo1</em> 即容器部分, 可以是当前容器的名字, 也可以是容器的标识.</p>
+<h3 id="查看容器日志"><a href="#查看容器日志" class="headerlink" title="查看容器日志"></a>查看容器日志</h3><p>通过 <code>docker logs</code> 可以查看容器内的输出(标准输出), 这能很方便的查看放在后台运行的容器的输出.<br>可以通过 <code>-f</code> 选项来指定跟随输出, <code>-t</code> 选项显示日志的时间. 更多可通过 <code>docker logs --help</code> 来查看.</p>
+<h3 id="查看容器内的进程"><a href="#查看容器内的进程" class="headerlink" title="查看容器内的进程"></a>查看容器内的进程</h3><p>可以通过 <code>docker top</code> 命令来查看当前容器内的进程:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker top demo1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">PID                 USER                TIME                COMMAND</span><br><span class="line">3958                root                0:00                /bin/bash</span><br></pre></td></tr></table></figure>
+<h3 id="查看容器完整信息"><a href="#查看容器完整信息" class="headerlink" title="查看容器完整信息"></a>查看容器完整信息</h3><p>可以使用 <code>docker inspect</code> 命令查看容器完整的信息:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker inspect demo1</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"f3e847b058c1340b79be2cf86a427f31fcd5185d335599718ab8e7a54481be77"</span>,</span><br><span class="line">        <span class="string">"Created"</span>: <span class="string">"2017-10-02T13:42:37.8105815Z"</span>,</span><br><span class="line">        <span class="string">"Path"</span>: <span class="string">"/bin/bash"</span>,</span><br><span class="line">        <span class="string">"Args"</span>: [],</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><p>可以通过 <code>docker rm</code> 命令来删除容器.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker rm c1</span><br><span class="line"># 输出</span><br><span class="line">Error response from daemon: You cannot remove a running container efbda911a3ac1829c30399859e0df26bc53096129796dc39bf6985f913bc721f. Stop the container before attempting removal or force remove</span><br><span class="line"></span><br><span class="line">docker rm -f c1</span><br><span class="line"># 输出</span><br><span class="line">c1</span><br></pre></td></tr></table></figure>
+<p>通过该操作可知, rm 不能移除运行中的容器, 但是可以通过附加 <code>-f</code> 选项来强制移除运行中的容器.<br>同时在删除容器的时候还可以移除制定的 link 与关联的 Volumn, 更多操作可以通过 <code>docker rm --help</code> 来查看.</p>
+<blockquote>
+<p><strong>TIP</strong></p>
+</blockquote>
+<p>  与 images 命令相同, ps 命令也有一个 -q 选项仅显示容器的 ID, 可以通过该选项来一次性删除全部的容器:</p>
+<blockquote>
+</blockquote>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm $(docker ps -aq)</span><br></pre></td></tr></table></figure>
+<h2 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h2><p>Docker仓库是镜像的集中管理地, 默认的为 Docker Hub.</p>
+<h3 id="仓库类型"><a href="#仓库类型" class="headerlink" title="仓库类型"></a>仓库类型</h3><p>Docker Hub 中仓库分为两种: 用户仓库和顶层仓库. 用户仓库是由用户创建的, 而顶层仓库是由 Docker 管理的.<br>用户仓库由两部分组成:</p>
+<ul>
+<li>用户名</li>
+<li>仓库名</li>
+</ul>
+<p>与之相对的, 顶层仓库则只包含仓库名, 顶层仓库中的镜像是架构良好, 最新且安全的.</p>
+<h3 id="Docker-Hub-加速"><a href="#Docker-Hub-加速" class="headerlink" title="Docker Hub 加速"></a>Docker Hub 加速</h3><p>国内访问 Docker Hub 速度比较慢, 可以通过通过配置加速器来加速该过程, 具体参见如下相应的教程:</p>
+<ul>
+<li><a href="https://www.daocloud.io/mirror" target="_blank" rel="noopener">DaoCloud</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part1" target="_blank" rel="noopener">Docker源码分析（一）：Docker架构</a></li>
+<li><a href="https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Get Docker CE for Ubuntu</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/18/shadowsocks/" rel="next" title="shadowsocks">
+                <i class="fa fa-chevron-left"></i> shadowsocks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/27/文体与活用形/" rel="prev" title="文体与活用形">
+                文体与活用形 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zeroleaf" />
+          <p class="site-author-name" itemprop="name">zeroleaf</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端服务器"><span class="nav-number">2.</span> <span class="nav-text">客户端服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-镜像"><span class="nav-number">3.</span> <span class="nav-text">Docker 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-容器"><span class="nav-number">4.</span> <span class="nav-text">Docker 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新的容器"><span class="nav-number">4.1.</span> <span class="nav-text">创建一个新的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器的运行状态"><span class="nav-number">4.2.</span> <span class="nav-text">查看容器的运行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动现有的容器"><span class="nav-number">4.3.</span> <span class="nav-text">启动现有的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在容器内部运行进程"><span class="nav-number">4.4.</span> <span class="nav-text">在容器内部运行进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止容器"><span class="nav-number">4.5.</span> <span class="nav-text">停止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名容器"><span class="nav-number">4.6.</span> <span class="nav-text">重命名容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器日志"><span class="nav-number">4.7.</span> <span class="nav-text">查看容器日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器内的进程"><span class="nav-number">4.8.</span> <span class="nav-text">查看容器内的进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器完整信息"><span class="nav-number">4.9.</span> <span class="nav-text">查看容器完整信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除容器"><span class="nav-number">4.10.</span> <span class="nav-text">删除容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Registry"><span class="nav-number">5.</span> <span class="nav-text">Registry</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#仓库类型"><span class="nav-number">5.1.</span> <span class="nav-text">仓库类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Hub-加速"><span class="nav-number">5.2.</span> <span class="nav-text">Docker Hub 加速</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeroleaf</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zeroleaf.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zeroleaf.com/2017/09/20/docker-basic/';
+          this.page.identifier = '2017/09/20/docker-basic/';
+          this.page.title = 'Docker 基础';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zeroleaf.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

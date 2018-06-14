@@ -1,0 +1,848 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tmux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZEROLEAF" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="tmux是一个优秀的终端复用软件, 使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。 —- 摘自百度百科  安装Macmac 可以通过 brew 来安装: brew install tmux 基本使用tmux 主要包含如下几个部分的功能:  会话 (session) 窗口 (window">
+<meta name="keywords" content="tmux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tmux">
+<meta property="og:url" content="http://zeroleaf.com/2017/06/30/tmux/index.html">
+<meta property="og:site_name" content="ZEROLEAF">
+<meta property="og:description" content="tmux是一个优秀的终端复用软件, 使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。 —- 摘自百度百科  安装Macmac 可以通过 brew 来安装: brew install tmux 基本使用tmux 主要包含如下几个部分的功能:  会话 (session) 窗口 (window">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-14T14:46:14.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tmux">
+<meta name="twitter:description" content="tmux是一个优秀的终端复用软件, 使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。 —- 摘自百度百科  安装Macmac 可以通过 brew 来安装: brew install tmux 基本使用tmux 主要包含如下几个部分的功能:  会话 (session) 窗口 (window">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zeroleaf.com/2017/06/30/tmux/"/>
+
+
+
+
+
+  <title>tmux | ZEROLEAF</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZEROLEAF</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">意志あるところに道は開ける</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zeroleaf.com/2017/06/30/tmux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeroleaf">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZEROLEAF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tmux</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-30T02:00:21+00:00">
+                2017-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/tmux/" itemprop="url" rel="index">
+                    <span itemprop="name">tmux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/30/tmux/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/30/tmux/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>tmux是一个优秀的终端复用软件, 使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，<br>在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。</p>
+<p>—- 摘自百度百科</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><p>mac 可以通过 brew 来安装:</p>
+<p><code>brew install tmux</code></p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>tmux 主要包含如下几个部分的功能:</p>
+<ul>
+<li>会话 (session)</li>
+<li>窗口 (window)</li>
+<li>面板 (panel)</li>
+</ul>
+<p>可以通过 <code>PREFIX ?</code> 来列出所有预定义的快捷键以及其绑定的命令</p>
+<h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>通过 <code>tmux</code> 命令即可开始一个会话, 默认的该会话的名字为 0, 如果想创建一个指定名字的会话, 则可通过</p>
+<p><code>tmux new -s &lt;session_name&gt;</code></p>
+<p>命令来创建一个会话.</p>
+<blockquote>
+<p>注意</p>
+<p>本质上来说, 如果只键入 tmux, 其功能应该是打开最近一次的会话, 如果会话不存在,<br>则创建一个新的会话. 因此, 在已经有一个会话的情况下, 通过 tmux 并不能创建一个新的会话出来,<br>此时, 必须使用命名的方式来创建.</p>
+<p>另外, 新建的命令需要在实际终端中执行(即, 如果当前在 tmux session, 需要先分离),<br>不然会报 ‘sessions should be nested with care, unset $TMUX to force’.</p>
+</blockquote>
+<h3 id="分离"><a href="#分离" class="headerlink" title="分离"></a>分离</h3><p>要将一个会话放到后台(并不是停止/退出), 可以通过 detach 命令来完成, 即</p>
+<p><code>tmux detach</code></p>
+<p>也可以通过快捷键 <code>Ctrl-b d</code> (即同时按住 Control + b, 然后松开再按 d).<br>同时, <code>Ctrl-b</code> 为 tmux 默认的前缀修饰组合键, 之后将用 <code>PREFIX</code> 来表示.</p>
+<h3 id="重入"><a href="#重入" class="headerlink" title="重入"></a>重入</h3><p>在分离之后, 如果是要进入最近一次分离的会话, 则简单的通过 <code>tmux</code> 即可.<br>如果是重入到另外一个会话, 则可以通过 <code>tmux attach -t &lt;session_name&gt;</code> 来完成.</p>
+<p>如果当前已经在会话中了, 执行 attach 命令也会遇到之前创建时的同样操作,<br>这时候应该使用 switch-client 命令, 即 <code>tmux switchc -t &lt;session_name&gt;</code> 来完成.</p>
+<h3 id="关闭-结束会话"><a href="#关闭-结束会话" class="headerlink" title="关闭/结束会话"></a>关闭/结束会话</h3><p>如果当前在会话中, 则通过 exit 命令即可结束当前会话.</p>
+<p>如果当前在终端, 则可以通过 <code>tmux kill-session -t &lt;session_name&gt;</code> 来完成.</p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>通过 <code>tmux list-sessions</code> 可以列出当前所有的会话列表, 该命令在会话跟终端都可以使用.</p>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><p>一个会话中可以包含多个窗口, 窗口是占满整个终端的 (可以类比 iTerm 中的 Tab).</p>
+<ul>
+<li><code>PREFIX c</code>: 创建</li>
+<li><code>PREFIX ,</code>: 重命名</li>
+<li><code>PREFIX n</code>: 移动到下一个窗口</li>
+<li><code>PREFIX p</code>: 移动到上一个窗口</li>
+<li><code>PREFIX &lt;num&gt;</code>: 其中, num 是窗口对应的编号, 通过该命令可以快速跳转到对应的窗口</li>
+<li><code>PREFIX f</code>: 通过名字来查找窗口</li>
+<li><code>PREFIX w</code>: 窗口列表, 可以选择</li>
+<li><code>PREFIX &amp;</code>: 结束当前窗口, 在结束之前会有一个确认消息提示</li>
+<li><code>exit</code>: 直接关闭/结束当前窗口</li>
+</ul>
+<h2 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h2><p>面板相对窗口来说更轻量一些, 它是在窗口上的, 我们可以将一个窗口分成几个面板.</p>
+<ul>
+<li><code>PREFIX %</code>: 将当前窗口垂直平分, 并将焦点移到新建的面板</li>
+<li><code>PREFIX &quot;</code>: 将当前窗口水平评分, 并将焦点移到新建的面板</li>
+<li><code>PREFIX o</code>: 在面板之间循环移动</li>
+<li><code>PREFIX Up</code>: 移动到上一个面板</li>
+<li><code>PREFIX Down</code>: 移动到下一个面板</li>
+<li><code>PREFIX Left</code>: 移动到左边的面板</li>
+<li><code>PREFIX Right</code>: 移动到右边的面板</li>
+<li><code>PREFIX SPACEBAR</code>: 在预定义的面板布局之间循环切换. 注意, 自定义的切换之后不能简单的撤销</li>
+<li><code>PREFIX X</code>: 关闭当前面板, 在关闭之前会有一个确认消息提示</li>
+</ul>
+<a id="more"></a>
+<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><ul>
+<li><code>PREFIX :</code>: 进入命令模式, 在这里可以执行 tmux 的命令</li>
+</ul>
+<h2 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h2><h3 id="命令别名"><a href="#命令别名" class="headerlink" title="命令别名"></a>命令别名</h3><p><a href="http://ohmyz.sh/" target="_blank" rel="noopener">oh-my-zsh</a> 中有 tmux 的插件, 启用可使 tmux 的使用更加方便.<br>该插件预定义了如下的命令别名:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ta=<span class="string">'tmux attach -t'</span></span><br><span class="line"><span class="built_in">alias</span> tad=<span class="string">'tmux attach -d -t'</span></span><br><span class="line"><span class="built_in">alias</span> ts=<span class="string">'tmux new-session -s'</span></span><br><span class="line"><span class="built_in">alias</span> tl=<span class="string">'tmux list-sessions'</span></span><br><span class="line"><span class="built_in">alias</span> tksv=<span class="string">'tmux kill-server'</span></span><br><span class="line"><span class="built_in">alias</span> tkss=<span class="string">'tmux kill-session -t'</span></span><br></pre></td></tr></table></figure>
+<p>同时, 鉴于 detach 与 switchc 命令也是很常用的, 建议添加如下的命令别名:</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> td=<span class="string">'tmux detach'</span></span><br><span class="line"><span class="built_in">alias</span> th=<span class="string">'tmux switchc -t'</span></span><br></pre></td></tr></table></figure>
+<p>这样就可以通过别名来快速的进行 tmux 相关的操作了, 大大方便了 tmux 的使用.</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="iTerm-中垂直分割线无法显示"><a href="#iTerm-中垂直分割线无法显示" class="headerlink" title="iTerm 中垂直分割线无法显示"></a>iTerm 中垂直分割线无法显示</h3><p>在 <code>iTerm-&gt;Preferences-&gt;Profiles-&gt;Text</code> 中取消<br><code>Treat ambiguous-width characters as double width</code> 的勾选.</p>
+<p>详见: <a href="https://stackoverflow.com/questions/9821973/tmux-borders-are-drawn-with-dashed-lines-how-can-i-change-them-to-continuous-li" target="_blank" rel="noopener">https://stackoverflow.com/questions/9821973/tmux-borders-are-drawn-with-dashed-lines-how-can-i-change-them-to-continuous-li</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tmux/" rel="tag"># tmux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/26/laravel-eloquent/" rel="next" title="laravel-eloquent">
+                <i class="fa fa-chevron-left"></i> laravel-eloquent
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/01/tmux-configuration/" rel="prev" title="tmux 配置">
+                tmux 配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="zeroleaf" />
+          <p class="site-author-name" itemprop="name">zeroleaf</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac"><span class="nav-number">1.1.</span> <span class="nav-text">Mac</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话"><span class="nav-number">3.</span> <span class="nav-text">会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建"><span class="nav-number">3.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分离"><span class="nav-number">3.2.</span> <span class="nav-text">分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重入"><span class="nav-number">3.3.</span> <span class="nav-text">重入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭-结束会话"><span class="nav-number">3.4.</span> <span class="nav-text">关闭/结束会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">3.5.</span> <span class="nav-text">列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口"><span class="nav-number">4.</span> <span class="nav-text">窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面板"><span class="nav-number">5.</span> <span class="nav-text">面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式"><span class="nav-number">6.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧"><span class="nav-number">7.</span> <span class="nav-text">技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令别名"><span class="nav-number">7.1.</span> <span class="nav-text">命令别名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">8.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iTerm-中垂直分割线无法显示"><span class="nav-number">8.1.</span> <span class="nav-text">iTerm 中垂直分割线无法显示</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeroleaf</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zeroleaf.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zeroleaf.com/2017/06/30/tmux/';
+          this.page.identifier = '2017/06/30/tmux/';
+          this.page.title = 'tmux';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zeroleaf.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

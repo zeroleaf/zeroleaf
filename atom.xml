@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ZEROLEAF</title>
+  
+  <subtitle>意志あるところに道は開ける</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://zeroleaf.com/"/>
+  <updated>2018-06-14T14:46:14.843Z</updated>
+  <id>http://zeroleaf.com/</id>
+  
+  <author>
+    <name>zeroleaf</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Javascript 动态调用</title>
+    <link href="http://zeroleaf.com/2018/06/13/js%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8/"/>
+    <id>http://zeroleaf.com/2018/06/13/js动态调用/</id>
+    <published>2018-06-13T15:17:59.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Javascript 里面, 动态调用(绑定 this)的操作主要有如下3个函数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;call&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apply&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bind&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面分别对这3个函数进行详细的说明.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://zeroleaf.com/tags/Javascript/"/>
+    
+      <category term="Function" scheme="http://zeroleaf.com/tags/Function/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文体与活用形</title>
+    <link href="http://zeroleaf.com/2017/09/27/%E6%96%87%E4%BD%93%E4%B8%8E%E6%B4%BB%E7%94%A8%E5%BD%A2/"/>
+    <id>http://zeroleaf.com/2017/09/27/文体与活用形/</id>
+    <published>2017-09-27T10:13:19.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章主要介绍日语相关的 &lt;strong&gt;文体&lt;/strong&gt; 以及相关的 &lt;strong&gt;活用形&lt;/strong&gt;,&lt;br&gt;这些基础的知识对日语的学习有很大的帮助.&lt;/p&gt;
+&lt;h2 id=&quot;简体&quot;&gt;&lt;a href=&quot;#简体&quot; class=&quot;headerlink&quot; title=&quot;简体&quot;&gt;&lt;/a&gt;简体&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;名词&lt;/th&gt;
+&lt;th&gt;ナ形容词&lt;/th&gt;
+&lt;th&gt;イ形容词&lt;/th&gt;
+&lt;th&gt;五段动词&lt;/th&gt;
+&lt;th&gt;一段动词&lt;/th&gt;
+&lt;th&gt;来る&lt;/th&gt;
+&lt;th&gt;する&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;词典形&lt;/td&gt;
+&lt;td&gt;休みだ&lt;/td&gt;
+&lt;td&gt;綺麗だ&lt;/td&gt;
+&lt;td&gt;面白い&lt;/td&gt;
+&lt;td&gt;書く&lt;/td&gt;
+&lt;td&gt;見る&lt;/td&gt;
+&lt;td&gt;くる&lt;/td&gt;
+&lt;td&gt;する&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;タ形&lt;/td&gt;
+&lt;td&gt;休みだった&lt;/td&gt;
+&lt;td&gt;綺麗だった&lt;/td&gt;
+&lt;td&gt;面白かった&lt;/td&gt;
+&lt;td&gt;書いた&lt;/td&gt;
+&lt;td&gt;見た&lt;/td&gt;
+&lt;td&gt;きた&lt;/td&gt;
+&lt;td&gt;した&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;テ形&lt;/td&gt;
+&lt;td&gt;休みで&lt;/td&gt;
+&lt;td&gt;綺麗で&lt;/td&gt;
+&lt;td&gt;面白くて&lt;/td&gt;
+&lt;td&gt;書いて&lt;/td&gt;
+&lt;td&gt;見て&lt;/td&gt;
+&lt;td&gt;きて&lt;/td&gt;
+&lt;td&gt;して&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;バ形&lt;/td&gt;
+&lt;td&gt;休みならば&lt;/td&gt;
+&lt;td&gt;綺麗ならば&lt;/td&gt;
+&lt;td&gt;面白ければ&lt;/td&gt;
+&lt;td&gt;書けば&lt;/td&gt;
+&lt;td&gt;見れば&lt;/td&gt;
+&lt;td&gt;くれば&lt;/td&gt;
+&lt;td&gt;しれば&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;否定形&lt;/td&gt;
+&lt;td&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 休みではない&lt;/td&gt;
+&lt;td&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 綺麗ではない&lt;/td&gt;
+&lt;td&gt;面白くない&lt;/td&gt;
+&lt;td&gt;書かない&lt;/td&gt;
+&lt;td&gt;見ない&lt;/td&gt;
+&lt;td&gt;こない&lt;/td&gt;
+&lt;td&gt;しない&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;连用形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書き&lt;/td&gt;
+&lt;td&gt;見&lt;/td&gt;
+&lt;td&gt;き&lt;/td&gt;
+&lt;td&gt;し&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;命令形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書け&lt;/td&gt;
+&lt;td&gt;見ろ&lt;/td&gt;
+&lt;td&gt;こい&lt;/td&gt;
+&lt;td&gt;しろ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;意向形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書こう&lt;/td&gt;
+&lt;td&gt;見よう&lt;/td&gt;
+&lt;td&gt;こよう&lt;/td&gt;
+&lt;td&gt;しよう&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 处的内容&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;では&lt;/strong&gt; 多用在书面语中, 在口语中可以用 &lt;strong&gt;じゃ&lt;/strong&gt; 代替, 因此&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;休みではない&lt;/li&gt;
+&lt;li&gt;休みじゃない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;都是可以的, &lt;strong&gt;ナ形容词&lt;/strong&gt; 同理.&lt;/p&gt;
+&lt;h2 id=&quot;敬体&quot;&gt;&lt;a href=&quot;#敬体&quot; class=&quot;headerlink&quot; title=&quot;敬体&quot;&gt;&lt;/a&gt;敬体&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;名词&lt;/th&gt;
+&lt;th&gt;ナ形容词&lt;/th&gt;
+&lt;th&gt;イ形容词&lt;/th&gt;
+&lt;th&gt;五段动词&lt;/th&gt;
+&lt;th&gt;一段动词&lt;/th&gt;
+&lt;th&gt;来る&lt;/th&gt;
+&lt;th&gt;する&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;词典形&lt;/td&gt;
+&lt;td&gt;休みです&lt;/td&gt;
+&lt;td&gt;綺麗です&lt;/td&gt;
+&lt;td&gt;面白いです&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;マス形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書きます&lt;/td&gt;
+&lt;td&gt;見ます&lt;/td&gt;
+&lt;td&gt;きます&lt;/td&gt;
+&lt;td&gt;します&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;タ形&lt;/td&gt;
+&lt;td&gt;休みでした&lt;/td&gt;
+&lt;td&gt;綺麗でした&lt;/td&gt;
+&lt;td&gt;面白かったです&lt;/td&gt;
+&lt;td&gt;書きました&lt;/td&gt;
+&lt;td&gt;見ました&lt;/td&gt;
+&lt;td&gt;きました&lt;/td&gt;
+&lt;td&gt;しました&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;否定形&lt;/td&gt;
+&lt;td&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 休みではありません&lt;/td&gt;
+&lt;td&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 綺麗ではありません&lt;/td&gt;
+&lt;td&gt;&lt;span style=&quot;color:orange&quot;&gt;x&lt;/span&gt; 面白くありません&lt;/td&gt;
+&lt;td&gt;書きません&lt;/td&gt;
+&lt;td&gt;見ません&lt;/td&gt;
+&lt;td&gt;きません&lt;/td&gt;
+&lt;td&gt;しません&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;テ形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書きまして&lt;/td&gt;
+&lt;td&gt;見まして&lt;/td&gt;
+&lt;td&gt;きまして&lt;/td&gt;
+&lt;td&gt;しまして&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;命令形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書きなさい&lt;/td&gt;
+&lt;td&gt;見なさい&lt;/td&gt;
+&lt;td&gt;きなさい&lt;/td&gt;
+&lt;td&gt;しなさい&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;意向形&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;–&lt;/td&gt;
+&lt;td&gt;書きましょう&lt;/td&gt;
+&lt;td&gt;見ましょう&lt;/td&gt;
+&lt;td&gt;きましょう&lt;/td&gt;
+&lt;td&gt;しましょう&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;由上表可知&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;名词, ナ形容词, イ形容词 的敬体肯定形是通过在词尾加 &lt;strong&gt;です&lt;/strong&gt; 构成的;&lt;br&gt;而 动词 是在词尾加 &lt;strong&gt;ます&lt;/strong&gt; 构成的.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;＊&lt;/span&gt; 处的内容&lt;br&gt;&lt;strong&gt;ありません&lt;/strong&gt; 可以使用 &lt;strong&gt;ないです&lt;/strong&gt; 代替, 结合上述的 &lt;strong&gt;では&lt;/strong&gt; 可以改为 &lt;strong&gt;じゃ&lt;/strong&gt; 的规则,&lt;br&gt;名词, ナ形容词的敬体否性形式共有如下4种:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;休みじゃないです&lt;/li&gt;
+&lt;li&gt;休みじゃありません&lt;/li&gt;
+&lt;li&gt;休みではないです&lt;/li&gt;
+&lt;li&gt;休みではありません&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span style=&quot;color:orange&quot;&gt;x&lt;/span&gt; 处的内容&lt;br&gt;结合上述的第二点可以得出 イ形容词的敬体否性形式共有如下两种:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;面白くないです&lt;/li&gt;
+&lt;li&gt;面白くありません&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="日本語" scheme="http://zeroleaf.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    
+      <category term="文法" scheme="http://zeroleaf.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/%E6%96%87%E6%B3%95/"/>
+    
+    
+      <category term="日本語" scheme="http://zeroleaf.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker 基础</title>
+    <link href="http://zeroleaf.com/2017/09/20/docker-basic/"/>
+    <id>http://zeroleaf.com/2017/09/20/docker-basic/</id>
+    <published>2017-09-20T16:34:51.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;该文章主要介绍 Docker 相关的基础内容, 主要包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基本概念&lt;/li&gt;
+&lt;li&gt;常用操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Docker&lt;/strong&gt; 是一个开放源代码软件项目，让应用程序布署在软件容器下的工作可以自动化进行，&lt;br&gt;借此在Linux操作系统上，提供一个额外的软件抽象层，以及操作系统层虚拟化的自动管理机制。&lt;/p&gt;
+&lt;p&gt;– 维基百科&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Docker 主要包含有如下的核心组件:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker 客户端和服务器&lt;/li&gt;
+&lt;li&gt;Docker 镜像&lt;/li&gt;
+&lt;li&gt;Docker 容器&lt;/li&gt;
+&lt;li&gt;Registry&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Docker 总架构图如下(图片来自 infoq):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cdn1.infoqstatic.com/statics_s1_20170919-0429u7/resource/articles/docker-source-code-analysis-part1/zh/resources/001.jpg&quot; alt=&quot;Docker 总架构图&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://zeroleaf.com/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://zeroleaf.com/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>shadowsocks</title>
+    <link href="http://zeroleaf.com/2017/09/18/shadowsocks/"/>
+    <id>http://zeroleaf.com/2017/09/18/shadowsocks/</id>
+    <published>2017-09-18T14:37:14.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;shadowsocks&lt;/strong&gt; 是一个安全的代理网络代理工具.&lt;br&gt;其分为客户端和服务器两部分, 客户端连接服务器即可通过服务器代理上网.&lt;/p&gt;
+&lt;p&gt;因此, 如果在国内, 有一台国外的虚拟主机即可代理自由上网;&lt;br&gt;而如果在国外, 则可以通过国内的主机代理来绕开版权的限制.&lt;/p&gt;
+&lt;h2 id=&quot;服务器&quot;&gt;&lt;a href=&quot;#服务器&quot; class=&quot;headerlink&quot; title=&quot;服务器&quot;&gt;&lt;/a&gt;服务器&lt;/h2&gt;&lt;p&gt;首先确保服务器上安装了 &lt;strong&gt;Python&lt;/strong&gt; 与 &lt;strong&gt;pip&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;然后通过 &lt;code&gt;pip&lt;/code&gt; 安装即可:&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pip install shadowsocks&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;安装完创建 &lt;code&gt;/etc/shadowsocks.json&lt;/code&gt; 文件, 内容如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight json&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;server&quot;&lt;/span&gt;:&lt;span class=&quot;string&quot;&gt;&quot;XXX.XXX.XXX.XXX&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;server_port&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;8388&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;local_port&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;1080&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;password&quot;&lt;/span&gt;:&lt;span class=&quot;string&quot;&gt;&quot;secret&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;timeout&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;600&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;attr&quot;&gt;&quot;method&quot;&lt;/span&gt;:&lt;span class=&quot;string&quot;&gt;&quot;aes-256-cfb&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其中:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt;: 填入服务器的外网地址即可&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt;: shadowsocks 连接密码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其他参照如上配置即可.&lt;/p&gt;
+&lt;h3 id=&quot;启动服务&quot;&gt;&lt;a href=&quot;#启动服务&quot; class=&quot;headerlink&quot; title=&quot;启动服务&quot;&gt;&lt;/a&gt;启动服务&lt;/h3&gt;&lt;p&gt;创建完配置文件之后, 即可通过如下命令启动后台服务:&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ssserver -c /etc/shadowsocks.json -d start&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意&lt;/p&gt;
+&lt;p&gt;如果配置文件的路径跟上述的不一样, 注意修改 -c 后的参数&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="网络" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="网络" scheme="http://zeroleaf.com/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tmux 配置</title>
+    <link href="http://zeroleaf.com/2017/07/01/tmux-configuration/"/>
+    <id>http://zeroleaf.com/2017/07/01/tmux-configuration/</id>
+    <published>2017-07-01T05:02:17.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2017/06/30/tmux/&quot;&gt;前篇&lt;/a&gt; 主要介绍了 tmux 的基本使用, 这篇主要介绍 tmux 的配置.&lt;/p&gt;
+&lt;h2 id=&quot;使用-gpakosz-tmux&quot;&gt;&lt;a href=&quot;#使用-gpakosz-tmux&quot; class=&quot;headerlink&quot; title=&quot;使用 gpakosz/.tmux&quot;&gt;&lt;/a&gt;使用 gpakosz/.tmux&lt;/h2&gt;&lt;p&gt;Github 上有个相当不错的 &lt;a href=&quot;https://github.com/gpakosz/.tmux&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;.tmux 配置&lt;/a&gt;, 直接安装使用即可.&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/gpakosz/.tmux.git&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; ln -s -f .tmux/.tmux.conf&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; cp .tmux/.tmux.conf.local .&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;执行完了之后, 重启 tmux 即可(如果此时已经有 tmux 在运行了, 则可以使用 &lt;code&gt;source-file ~/.tmux&lt;/code&gt; 来更新配置).&lt;/p&gt;
+&lt;p&gt;效果如下:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/tmux-configuration_gpakosz.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;之后, 可以在 &lt;code&gt;~/.tmux.conf.local&lt;/code&gt; 文件中添加自定义配置.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="tmux" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/tmux/"/>
+    
+    
+      <category term="tmux" scheme="http://zeroleaf.com/tags/tmux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tmux</title>
+    <link href="http://zeroleaf.com/2017/06/30/tmux/"/>
+    <id>http://zeroleaf.com/2017/06/30/tmux/</id>
+    <published>2017-06-30T02:00:21.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;tmux是一个优秀的终端复用软件, 使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，&lt;br&gt;在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；当然其功能远不止于此。&lt;/p&gt;
+&lt;p&gt;—- 摘自百度百科&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;h3 id=&quot;Mac&quot;&gt;&lt;a href=&quot;#Mac&quot; class=&quot;headerlink&quot; title=&quot;Mac&quot;&gt;&lt;/a&gt;Mac&lt;/h3&gt;&lt;p&gt;mac 可以通过 brew 来安装:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;brew install tmux&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;基本使用&quot;&gt;&lt;a href=&quot;#基本使用&quot; class=&quot;headerlink&quot; title=&quot;基本使用&quot;&gt;&lt;/a&gt;基本使用&lt;/h2&gt;&lt;p&gt;tmux 主要包含如下几个部分的功能:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;会话 (session)&lt;/li&gt;
+&lt;li&gt;窗口 (window)&lt;/li&gt;
+&lt;li&gt;面板 (panel)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以通过 &lt;code&gt;PREFIX ?&lt;/code&gt; 来列出所有预定义的快捷键以及其绑定的命令&lt;/p&gt;
+&lt;h2 id=&quot;会话&quot;&gt;&lt;a href=&quot;#会话&quot; class=&quot;headerlink&quot; title=&quot;会话&quot;&gt;&lt;/a&gt;会话&lt;/h2&gt;&lt;h3 id=&quot;创建&quot;&gt;&lt;a href=&quot;#创建&quot; class=&quot;headerlink&quot; title=&quot;创建&quot;&gt;&lt;/a&gt;创建&lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;tmux&lt;/code&gt; 命令即可开始一个会话, 默认的该会话的名字为 0, 如果想创建一个指定名字的会话, 则可通过&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tmux new -s &amp;lt;session_name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;命令来创建一个会话.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意&lt;/p&gt;
+&lt;p&gt;本质上来说, 如果只键入 tmux, 其功能应该是打开最近一次的会话, 如果会话不存在,&lt;br&gt;则创建一个新的会话. 因此, 在已经有一个会话的情况下, 通过 tmux 并不能创建一个新的会话出来,&lt;br&gt;此时, 必须使用命名的方式来创建.&lt;/p&gt;
+&lt;p&gt;另外, 新建的命令需要在实际终端中执行(即, 如果当前在 tmux session, 需要先分离),&lt;br&gt;不然会报 ‘sessions should be nested with care, unset $TMUX to force’.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;分离&quot;&gt;&lt;a href=&quot;#分离&quot; class=&quot;headerlink&quot; title=&quot;分离&quot;&gt;&lt;/a&gt;分离&lt;/h3&gt;&lt;p&gt;要将一个会话放到后台(并不是停止/退出), 可以通过 detach 命令来完成, 即&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tmux detach&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;也可以通过快捷键 &lt;code&gt;Ctrl-b d&lt;/code&gt; (即同时按住 Control + b, 然后松开再按 d).&lt;br&gt;同时, &lt;code&gt;Ctrl-b&lt;/code&gt; 为 tmux 默认的前缀修饰组合键, 之后将用 &lt;code&gt;PREFIX&lt;/code&gt; 来表示.&lt;/p&gt;
+&lt;h3 id=&quot;重入&quot;&gt;&lt;a href=&quot;#重入&quot; class=&quot;headerlink&quot; title=&quot;重入&quot;&gt;&lt;/a&gt;重入&lt;/h3&gt;&lt;p&gt;在分离之后, 如果是要进入最近一次分离的会话, 则简单的通过 &lt;code&gt;tmux&lt;/code&gt; 即可.&lt;br&gt;如果是重入到另外一个会话, 则可以通过 &lt;code&gt;tmux attach -t &amp;lt;session_name&amp;gt;&lt;/code&gt; 来完成.&lt;/p&gt;
+&lt;p&gt;如果当前已经在会话中了, 执行 attach 命令也会遇到之前创建时的同样操作,&lt;br&gt;这时候应该使用 switch-client 命令, 即 &lt;code&gt;tmux switchc -t &amp;lt;session_name&amp;gt;&lt;/code&gt; 来完成.&lt;/p&gt;
+&lt;h3 id=&quot;关闭-结束会话&quot;&gt;&lt;a href=&quot;#关闭-结束会话&quot; class=&quot;headerlink&quot; title=&quot;关闭/结束会话&quot;&gt;&lt;/a&gt;关闭/结束会话&lt;/h3&gt;&lt;p&gt;如果当前在会话中, 则通过 exit 命令即可结束当前会话.&lt;/p&gt;
+&lt;p&gt;如果当前在终端, 则可以通过 &lt;code&gt;tmux kill-session -t &amp;lt;session_name&amp;gt;&lt;/code&gt; 来完成.&lt;/p&gt;
+&lt;h3 id=&quot;列表&quot;&gt;&lt;a href=&quot;#列表&quot; class=&quot;headerlink&quot; title=&quot;列表&quot;&gt;&lt;/a&gt;列表&lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;tmux list-sessions&lt;/code&gt; 可以列出当前所有的会话列表, 该命令在会话跟终端都可以使用.&lt;/p&gt;
+&lt;h2 id=&quot;窗口&quot;&gt;&lt;a href=&quot;#窗口&quot; class=&quot;headerlink&quot; title=&quot;窗口&quot;&gt;&lt;/a&gt;窗口&lt;/h2&gt;&lt;p&gt;一个会话中可以包含多个窗口, 窗口是占满整个终端的 (可以类比 iTerm 中的 Tab).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PREFIX c&lt;/code&gt;: 创建&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX ,&lt;/code&gt;: 重命名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX n&lt;/code&gt;: 移动到下一个窗口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX p&lt;/code&gt;: 移动到上一个窗口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX &amp;lt;num&amp;gt;&lt;/code&gt;: 其中, num 是窗口对应的编号, 通过该命令可以快速跳转到对应的窗口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX f&lt;/code&gt;: 通过名字来查找窗口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX w&lt;/code&gt;: 窗口列表, 可以选择&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX &amp;amp;&lt;/code&gt;: 结束当前窗口, 在结束之前会有一个确认消息提示&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;exit&lt;/code&gt;: 直接关闭/结束当前窗口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;面板&quot;&gt;&lt;a href=&quot;#面板&quot; class=&quot;headerlink&quot; title=&quot;面板&quot;&gt;&lt;/a&gt;面板&lt;/h2&gt;&lt;p&gt;面板相对窗口来说更轻量一些, 它是在窗口上的, 我们可以将一个窗口分成几个面板.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PREFIX %&lt;/code&gt;: 将当前窗口垂直平分, 并将焦点移到新建的面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX &amp;quot;&lt;/code&gt;: 将当前窗口水平评分, 并将焦点移到新建的面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX o&lt;/code&gt;: 在面板之间循环移动&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX Up&lt;/code&gt;: 移动到上一个面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX Down&lt;/code&gt;: 移动到下一个面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX Left&lt;/code&gt;: 移动到左边的面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX Right&lt;/code&gt;: 移动到右边的面板&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX SPACEBAR&lt;/code&gt;: 在预定义的面板布局之间循环切换. 注意, 自定义的切换之后不能简单的撤销&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PREFIX X&lt;/code&gt;: 关闭当前面板, 在关闭之前会有一个确认消息提示&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="tmux" scheme="http://zeroleaf.com/categories/%E5%B7%A5%E5%85%B7/tmux/"/>
+    
+    
+      <category term="tmux" scheme="http://zeroleaf.com/tags/tmux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>laravel-eloquent</title>
+    <link href="http://zeroleaf.com/2017/06/26/laravel-eloquent/"/>
+    <id>http://zeroleaf.com/2017/06/26/laravel-eloquent/</id>
+    <published>2017-06-26T03:18:45.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;关联&quot;&gt;&lt;a href=&quot;#关联&quot; class=&quot;headerlink&quot; title=&quot;关联&quot;&gt;&lt;/a&gt;关联&lt;/h2&gt;&lt;h3 id=&quot;Has-Many-Through&quot;&gt;&lt;a href=&quot;#Has-Many-Through&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+    
+      <category term="PHP" scheme="http://zeroleaf.com/tags/PHP/"/>
+    
+      <category term="Laravel" scheme="http://zeroleaf.com/tags/Laravel/"/>
+    
+      <category term="Eloquent" scheme="http://zeroleaf.com/tags/Eloquent/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>系统调用</title>
+    <link href="http://zeroleaf.com/2017/06/12/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/"/>
+    <id>http://zeroleaf.com/2017/06/12/系统调用/</id>
+    <published>2017-06-12T02:09:36.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Linux 系统调用参考 &lt;a href=&quot;http://syscalls.kernelgrok.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://syscalls.kernelgrok.com/&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>C文件I/O</title>
+    <link href="http://zeroleaf.com/2017/06/11/C%E6%96%87%E4%BB%B6I-O/"/>
+    <id>http://zeroleaf.com/2017/06/11/C文件I-O/</id>
+    <published>2017-06-11T02:16:00.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;IO 是每个程序中基本的操作, 而在大多数的文件I/O操作中, 只需要 5 个函数:&lt;br&gt;&lt;code&gt;open&lt;/code&gt;, &lt;code&gt;read&lt;/code&gt;, &lt;code&gt;write&lt;/code&gt;, &lt;code&gt;lseek&lt;/code&gt;, &lt;code&gt;close&lt;/code&gt; 等. 简单的来说, 几个基本函数是系统调用,&lt;br&gt;提供了文件IO的最原始的操作.&lt;/p&gt;
+&lt;h2 id=&quot;文件描述符&quot;&gt;&lt;a href=&quot;#文件描述符&quot; class=&quot;headerlink&quot; title=&quot;文件描述符&quot;&gt;&lt;/a&gt;文件描述符&lt;/h2&gt;&lt;p&gt;对内核而言, 所有打开的文件资源 &lt;strong&gt;都是通过文件描述符&lt;/strong&gt; 引用. 文件描述符是一个 &lt;strong&gt;非负整数&lt;/strong&gt;.&lt;br&gt;在打开/创建文件时, 内核会向进程返回对应的文件描述符, 而其也是 &lt;code&gt;read&lt;/code&gt;, &lt;code&gt;write&lt;/code&gt; 等的参数.&lt;/p&gt;
+&lt;h3 id=&quot;特殊的文件描述符&quot;&gt;&lt;a href=&quot;#特殊的文件描述符&quot; class=&quot;headerlink&quot; title=&quot;特殊的文件描述符&quot;&gt;&lt;/a&gt;特殊的文件描述符&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;STDIN_FILENO(0): 标准输入&lt;/li&gt;
+&lt;li&gt;STDOUT_FILENO(1): 标准输出&lt;/li&gt;
+&lt;li&gt;STDERR_FILENO(2): 标准错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;值得注意的是, 虽然 0, 1, 2 已被标准化, 但在编码的时候最好还是使用 XX_FILENO 预定义常量.&lt;br&gt;常量预定义在 &lt;code&gt;&amp;lt;unistd.h&amp;gt;&lt;/code&gt; 中.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://zeroleaf.com/categories/C/"/>
+    
+      <category term="I/O" scheme="http://zeroleaf.com/categories/C/I-O/"/>
+    
+    
+      <category term="C" scheme="http://zeroleaf.com/tags/C/"/>
+    
+      <category term="I/O" scheme="http://zeroleaf.com/tags/I-O/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git无法添加某些文件夹</title>
+    <link href="http://zeroleaf.com/2017/06/10/Git%E6%97%A0%E6%B3%95%E6%B7%BB%E5%8A%A0%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6%E5%A4%B9/"/>
+    <id>http://zeroleaf.com/2017/06/10/Git无法添加某些文件夹/</id>
+    <published>2017-06-10T16:33:54.000Z</published>
+    <updated>2018-06-14T14:46:14.843Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有时, git 会无法添加 &lt;em&gt;vendor&lt;/em&gt; 下的某些文件夹, 即使通过 &lt;code&gt;git add -f vendor&lt;/code&gt; 也无法添加, 通过 &lt;code&gt;git status&lt;/code&gt; 也没有关于那些文件夹的状态追踪. 一般来说, 是这些文件夹(通常是一个 git 库) 里面包含了 &lt;code&gt;.git&lt;/code&gt; 文件夹, 它被识别为了 git 的 &lt;strong&gt;submodule&lt;/strong&gt;, 列出这些 submodule 可以使用:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git ls-files --stage | grep 160000&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h2&gt;&lt;h3 id=&quot;移除-git&quot;&gt;&lt;a href=&quot;#移除-git&quot; class=&quot;headerlink&quot; title=&quot;移除 .git&quot;&gt;&lt;/a&gt;移除 &lt;code&gt;.git&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;一个简单(但不优雅)的处理方案是, 移除掉那些文件夹下的 &lt;code&gt;.git&lt;/code&gt; 文件夹, 让这些不被识别为 submodule,&lt;br&gt;可通过以下的命令来移除:&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# zsh&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rm -rf vendor/**/.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;find vendor/ -&lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt; d -name &lt;span class=&quot;string&quot;&gt;&quot;.git&quot;&lt;/span&gt; -&lt;span class=&quot;built_in&quot;&gt;exec&lt;/span&gt; rm -rf &amp;#123;&amp;#125; \;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后执行:&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git rm --cached -r vendor&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git add vendor&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;即可.&lt;/p&gt;
+&lt;h3 id=&quot;添加-gitignore-匹配模式&quot;&gt;&lt;a href=&quot;#添加-gitignore-匹配模式&quot; class=&quot;headerlink&quot; title=&quot;添加 .gitignore 匹配模式&quot;&gt;&lt;/a&gt;添加 &lt;code&gt;.gitignore&lt;/code&gt; 匹配模式&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;.gitignore&lt;/code&gt; 中添加如下的匹配模式&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/vendor/**/.git&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://zeroleaf.com/tags/Git/"/>
+    
+  </entry>
+  
+</feed>
